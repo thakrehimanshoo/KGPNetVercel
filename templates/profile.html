@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock title %}
+{% block body %}
+
+<style>
+    /* Add your CSS styles here */
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    button[type="submit"] {
+        background-color: #153448;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+<div class="container">
+    <form method="POST"  enctype="multipart/form-data" class="bio-form">
+        {% csrf_token %}
+        <div style="text-align: center; font-weight: bold;">{{request.user.username}} 
+            <!-- <div class="edit-button" > <a href="/editprofile"><svg  style="width: 10px; height: 10px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" version="1.1" id="Capa_1" width="800px" height="800px" viewBox="0 0 528.899 528.899" xml:space="preserve">
+                <g>
+                    <path d="M328.883,89.125l107.59,107.589l-272.34,272.34L56.604,361.465L328.883,89.125z M518.113,63.177l-47.981-47.981   c-18.543-18.543-48.653-18.543-67.259,0l-45.961,45.961l107.59,107.59l53.611-53.611   C532.495,100.753,532.495,77.559,518.113,63.177z M0.3,512.69c-1.958,8.812,5.998,16.708,14.811,14.565l119.891-29.069   L27.473,390.597L0.3,512.69z"/>
+                </g>
+                </svg></a></div>
+            </div> -->
+        <hr>
+        <br>
+        
+        {% if profile_pic %} <img class="profile-pic" src="{{profile_pic}}" alt=""> 
+        {% else %} <img  class="profile-pic" src="/static/profile_pics/user_icon.jpg" alt=""> {% endif %}
+       
+        {{form.bio.label_tag}}
+        {{form.bio}}
+     
+        <label for="id_profile_picture">Profile Picture:</label>
+        <input type="file" name="profile_picture" id="id_profile_picture">
+        
+        <button type="submit">Save</button>
+    </form>
+</div>
+
+    <script>
+        document.getElementById("logo").innerHTML = "My Profile";
+
+    </script>
+{% endblock body %}
